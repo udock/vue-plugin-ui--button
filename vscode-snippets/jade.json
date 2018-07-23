@@ -1,0 +1,9 @@
+{
+  "u-button": {
+    "description": "UButton",
+		"prefix": "u-button",
+		"body": [
+			"UButton$0(type=\"${1:primary}\") ${2:Text}"
+		]
+  }
+}

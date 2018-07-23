@@ -1,0 +1,468 @@
+@mixin button-size($padding, $font-size, $border-radius) {
+  padding: $padding;
+  font-size: $font-size;
+  border-radius: $border-radius;
+}
+
+@mixin button-color($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+}
+
+@mixin button-variant($color, $background, $border) {
+  @include button-color($color, $background, $border);
+
+  &:hover
+  //&:focus
+  {
+    @include button-color(tint($color, 20%), tint($background, 20%), tint($border, 20%));
+  }
+  &:active,
+  &.active {
+    @include button-color(shade($color, 5%), shade($background, 5%), shade($background, 5%));
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      @include button-color($ui-button-disabled-color, $ui-button-disabled-bg-color, $ui-button-disabled-border-color);
+    }
+  }
+}
+
+@mixin button-group-base($button-class-name) {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  > .#{$button-class-name} {
+    position: relative;
+    float: left;
+    &:hover,
+    //&:focus,
+    &:active,
+    &.active {
+      z-index: 2;
+    }
+  }
+
+  & .#{$button-class-name}-icon-only .#{$ui-button-icon-cls} {
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+  }
+
+  &-large .#{$button-class-name}-icon-only .#{$ui-button-icon-cls}{
+    font-size: 16px;
+    top: 2px;
+  }
+
+  &-small .#{$button-class-name}-icon-only .#{$ui-button-icon-cls}{
+    font-size: 12px;
+    top: 0;
+  }
+
+  &-circle .#{$button-class-name} {
+    border-radius: $ui-button-circle-size;
+  }
+
+  // size
+  &-large
+  &-circle .#{$button-class-name} {
+    border-radius: $ui-button-circle-size-large;
+  }
+  &-large {
+    & > .#{$button-class-name} {
+      @include button-size($ui-button-padding-large, $ui-button-font-size-large, $ui-button-border-radius-large);
+    }
+  }
+
+  &-small
+  &-circle .#{$button-class-name} {
+    border-radius: $ui-button-circle-size-small;
+  }
+  &-small {
+    & > .#{$button-class-name}{
+      @include button-size($ui-button-padding-small, $ui-button-font-size, $ui-button-border-radius-small);
+      > .#{$ui-button-icon-cls} {
+        font-size: $ui-button-font-size;
+      }
+    }
+  }
+}
+
+@mixin button-group-vertical-base($button-class-name) {
+  display: inline-block;
+  vertical-align: middle;
+  > .#{$button-class-name} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    float: none;
+  }
+}
+
+@mixin btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: $ui-button-font-weight;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: $line-height-base;
+  user-select: none;
+  @include button-size($ui-button-padding-base, $ui-button-font-size, $ui-button-border-radius-base);
+  transform: translate3d(0, 0, 0);
+  //transition: all $transition-time linear;
+  transition: color $transition-time linear, background-color $transition-time linear, border $transition-time linear;
+
+  > .#{$ui-button-icon-cls} {
+    line-height: 1;
+  }
+
+  &,
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+
+  &:not([disabled]):hover {
+    text-decoration: none;
+  }
+
+  &:not([disabled]):active {
+    outline: 0;
+    transition: none;
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: $cursor-disabled;
+    > * {
+      pointer-events: none;
+    }
+  }
+
+  &-large {
+    @include button-size($ui-button-padding-large, $ui-button-font-size-large, $ui-button-border-radius-large);
+  }
+
+  &-small {
+    @include button-size($ui-button-padding-small, $ui-button-font-size, $ui-button-border-radius-small);
+  }
+}
+
+// Default
+@mixin btn-default {
+  @include button-variant($ui-button-default-color, $ui-button-default-bg-color, $ui-button-default-border);
+
+  &:hover
+  //&:focus
+  {
+    @include button-color(tint($ui-button-primary-bg-color, 20%), white, tint($ui-button-primary-bg-color, 20%));
+  }
+  &:active,
+  &.active {
+    @include button-color(shade($ui-button-primary-bg-color, 5%), white, shade($ui-button-primary-bg-color, 5%));
+  }
+}
+
+// Primary
+@mixin btn-primary {
+  @include button-variant($ui-button-primary-color, $ui-button-primary-bg-color, $ui-button-primary-bg-color);
+
+  &:hover,
+  //&:focus,
+  &:active,
+  &.active {
+    color: $ui-button-primary-color;
+  }
+}
+
+// Ghost
+@mixin btn-ghost {
+  @include button-variant($ui-button-ghost-color, $ui-button-ghost-bg-color, $ui-button-ghost-border);
+
+  &:hover
+  //&:focus
+  {
+    @include button-color(tint($ui-button-primary-bg-color, 20%), $ui-button-ghost-bg-color, tint($ui-button-primary-bg-color, 20%));
+  }
+  &:active,
+  &.active {
+    @include button-color(shade($ui-button-primary-bg-color, 5%), $ui-button-ghost-bg-color, shade($ui-button-primary-bg-color, 5%));
+  }
+}
+
+// Dashed
+@mixin btn-dashed {
+  @include button-variant($ui-button-ghost-color, $ui-button-ghost-bg-color, $ui-button-ghost-border);
+  border-style: dashed;
+
+  &:hover
+  //&:focus
+  {
+    @include button-color(tint($ui-button-primary-bg-color, 20%), $ui-button-ghost-bg-color, tint($ui-button-primary-bg-color, 20%));
+  }
+  &:active,
+  &.active {
+    @include button-color(shade($ui-button-primary-bg-color, 5%), $ui-button-ghost-bg-color, shade($ui-button-primary-bg-color, 5%));
+  }
+}
+
+// Text
+@mixin btn-text {
+  @include button-variant($ui-button-ghost-color, $ui-button-ghost-bg-color, transparent);
+
+  // for disabled
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      @include button-color($ui-button-disabled-color, $ui-button-ghost-bg-color, transparent);
+    }
+  }
+
+  &:hover
+    //&:focus
+  {
+    @include button-color(tint($ui-button-primary-bg-color, 20%), $ui-button-ghost-bg-color, transparent);
+  }
+  &:active,
+  &.active {
+    @include button-color(shade($ui-button-primary-bg-color, 5%), $ui-button-ghost-bg-color, transparent);
+  }
+}
+
+// Color
+@mixin btn-color($color) {
+  @include button-variant($ui-button-primary-color, $color, $color);
+
+  &:hover,
+    //&:focus,
+  &:active,
+  &.active {
+    color: $ui-button-primary-color;
+  }
+}
+
+// Circle for Icon
+@mixin btn-circle($button-class-name) {
+  border-radius: $ui-button-circle-size;
+
+  &.#{$button-class-name}-large{
+    border-radius: $ui-button-circle-size-large;
+  }
+
+  &.#{$button-class-name}-size{
+    border-radius: $ui-button-circle-size-small;
+  }
+
+  &.#{$button-class-name}-icon-only{
+    @include square($ui-button-circle-size);
+    @include button-size(0, $font-size-base + 2, 50%);
+
+    &.#{$button-class-name}-large{
+      @include square($ui-button-circle-size-large);
+      @include button-size(0, $ui-button-font-size-large + 2, 50%);
+    }
+
+    &.#{$button-class-name}-small{
+      @include square($ui-button-circle-size-small);
+      @include button-size(0, $font-size-base, 50%);
+    }
+  }
+}
+
+// Group
+@mixin btn-group($button-class-name) {
+  @include button-group-base($button-class-name);
+
+  .#{$button-class-name} + .#{$button-class-name},
+  .#{$button-class-name} + &,
+  & + .#{$button-class-name},
+  & + & {
+    margin-left: -1px;
+  }
+
+  .#{$button-class-name}:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
+  &:not(&-vertical) > .#{$button-class-name}:first-child {
+    margin-left: 0;
+    &:not(:last-child) {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  &:not(&-vertical) > .#{$button-class-name}:last-child:not(:first-child) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  & > & {
+    float: left;
+  }
+
+  & > &:not(:first-child):not(:last-child) > .#{$button-class-name} {
+    border-radius: 0;
+  }
+
+  &:not(&-vertical) > &:first-child:not(:last-child) {
+    > .#{$button-class-name}:last-child {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      padding-right: 8px;
+    }
+  }
+
+  &:not(&-vertical) > &:last-child:not(:first-child) > .#{$button-class-name}:first-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding-left: 8px;
+  }
+}
+
+@mixin btn-group-vertical($button-class-name) {
+  @include button-group-vertical-base($button-class-name);
+
+  .#{$button-class-name} + .#{$button-class-name},
+  .#{$button-class-name} + &,
+  & + .#{$button-class-name},
+  & + & {
+    margin-top: -1px;
+    margin-left: 0px;
+  }
+
+  > .#{$button-class-name}:first-child {
+    margin-top: 0;
+    &:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  > .#{$button-class-name}:last-child:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  & > &:first-child:not(:last-child) {
+    > .#{$button-class-name}:last-child {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-bottom: 8px;
+    }
+  }
+
+  & > &:last-child:not(:first-child) > .#{$button-class-name}:first-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-top: 8px;
+  }
+}
+
+@mixin make-btn-common() {
+  // a inside Button which only work in Chrome
+  // http://stackoverflow.com/a/17253457
+  .#{$ui-button-cls} > span > a:only-child,
+  .#{$ui-button-cls}:hover > span > a:only-child,
+  .#{$ui-button-cls}.active > span > a:only-child,
+  .#{$ui-button-cls}:active > span > a:only-child,
+  .#{$ui-button-cls}.disabled.active > span > a:only-child,
+  .#{$ui-button-cls}.disabled:active > span > a:only-child,
+  .#{$ui-button-cls}.disabled:focus > span > a:only-child,
+  .#{$ui-button-cls}.disabled:hover > span > a:only-child,
+  .#{$ui-button-cls}.disabled > span > a:only-child,
+  .#{$ui-button-cls}[disabled].active > span > a:only-child,
+  .#{$ui-button-cls}[disabled]:active > span > a:only-child,
+  .#{$ui-button-cls}[disabled]:focus > span > a:only-child,
+  .#{$ui-button-cls}[disabled]:hover > span > a:only-child,
+  .#{$ui-button-cls}[disabled] > span > a:only-child,
+  fieldset[disabled] .#{$ui-button-cls}.active > span > a:only-child,
+  fieldset[disabled] .#{$ui-button-cls}:active > span > a:only-child,
+  fieldset[disabled] .#{$ui-button-cls}:focus > span > a:only-child,
+  fieldset[disabled] .#{$ui-button-cls}:hover > span > a:only-child,
+  fieldset[disabled] .#{$ui-button-cls} > span > a:only-child
+  {
+    color: currentColor;
+    &:after
+    {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: transparent;
+    }
+  }
+}
+
+@mixin custom-btn-status($btn-config) {
+  @if(map_get($btn-config, 'color')) {
+    color: map_get($btn-config, 'color');
+  }
+  @if(map_get($btn-config, 'bgColor')) {
+    background-color: map_get($btn-config, 'bgColor');
+  }
+  @if(map_get($btn-config, 'backgroundColor')) {
+    background-color: map_get($btn-config, 'backgroundColor');
+  }
+  @if(map_get($btn-config, 'borderColor')) {
+    border-color: map_get($btn-config, 'borderColor');
+  }
+  @if(map_get($btn-config, 'borderStyle')) {
+    border-style: map_get($btn-config, 'borderStyle');
+  }
+  @if(map_get($btn-config, 'borderRadius')) {
+    border-radius: map_get($btn-config, 'borderRadius');
+  }
+}
+@mixin custom-btn($default, $hover, $active, $disable) {
+  @if($default) {
+    @include custom-btn-status($default);
+  }
+
+  @if($hover) {
+    &:hover
+    //&:focus
+    {
+      @include custom-btn-status($hover);
+    }
+  }
+  @if($active) {
+    &:active,
+    &.active {
+      @include custom-btn-status($active);
+    }
+  }
+  @if($disable) {
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+      &,
+      &:hover,
+      &:focus,
+      &:active,
+      &.active {
+        @include custom-btn-status($disable);
+      }
+    }
+  }
+}

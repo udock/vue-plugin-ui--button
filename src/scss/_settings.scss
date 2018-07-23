@@ -1,0 +1,45 @@
+$font-weight:normal !default;
+$font-size-small: $font-size-base - 2 !default;
+$font-size-large: $font-size-base + 2 !default;
+
+$border-radius-base: $border-radius-base !default;
+$border-radius-large: $border-radius-base !default;
+$border-radius-small: $border-radius-base - 1 !default;
+
+$ui-icon-cls : #{$css-prefix}icon !default;
+
+$ui-button-cls: #{$css-prefix}btn !default;
+$ui-button-icon-cls  : $ui-icon-cls !default;
+
+$ui-button-font-weight        : $font-weight !default;
+$ui-button-font-size          : $font-size-base !default;
+$ui-button-font-size-small    : $font-size-small !default;
+$ui-button-font-size-large    : $font-size-large !default;
+
+$ui-button-padding-base       : 6px 15px !default;
+$ui-button-padding-large      : 6px 15px 7px 15px !default;
+$ui-button-padding-small      : 2px 7px !default;
+
+$ui-button-border-radius-base : $border-radius-large !default;
+$ui-button-border-radius-large: $border-radius-large !default;
+$ui-button-border-radius-small: $border-radius-small !default;
+$ui-button-group-border       : shade($primary-color, 5%) !default;
+
+$ui-button-default-color      : $text-color !default;
+$ui-button-default-bg-color   : $background-color-base !default;
+$ui-button-default-border     : $border-color-base !default;
+
+$ui-button-disabled-color        : $disabled-color * 0.5 !default;
+$ui-button-disabled-bg-color     : $disabled-color !default;
+$ui-button-disabled-border-color : $disabled-color * 0.86 !default;
+
+$ui-button-primary-color      : #fff !default;
+$ui-button-primary-bg-color   : $primary-color !default;
+
+$ui-button-ghost-color        : $text-color !default;
+$ui-button-ghost-bg-color     : transparent !default;
+$ui-button-ghost-border       : $border-color-base !default;
+
+$ui-button-circle-size        : 32px !default;
+$ui-button-circle-size-large  : $ui-button-circle-size + 4 !default;
+$ui-button-circle-size-small  : $ui-button-circle-size - 8 !default;

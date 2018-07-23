@@ -1,0 +1,24 @@
+{
+  "name": "@udock/vue-plugin-ui--button",
+  "private": true,
+  "description": "@udock/vue-plugin-ui--button",
+  "version": "0.0.1",
+  "main": "dist/index.umd.js",
+  "files": [
+    "dist",
+    "src/scss",
+    "vscode-snippets"
+  ],
+  "scripts": {
+    "build": "@udock/build-tools webpack sass"
+  },
+  "peerDependencies": {
+    "@udock/vue-plugin-ui--animation": "^0.0.1",
+    "@udock/vue-plugin-ui--icon": "^0.0.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "@udock/build-tools": "^0.0.1"
+  },
+  "dependencies": {}
+}
