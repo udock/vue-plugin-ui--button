@@ -29,9 +29,9 @@ $ui-button-default-color      : $text-color !default;
 $ui-button-default-bg-color   : $background-color-base !default;
 $ui-button-default-border     : $border-color-base !default;
 
-$ui-button-disabled-color        : $disabled-color * 0.5 !default;
+$ui-button-disabled-color        : lighten($disabled-color, 0.5) !default;
 $ui-button-disabled-bg-color     : $disabled-color !default;
-$ui-button-disabled-border-color : $disabled-color * 0.86 !default;
+$ui-button-disabled-border-color : lighten($disabled-color, 0.86) !default;
 
 $ui-button-primary-color      : #fff !default;
 $ui-button-primary-bg-color   : $primary-color !default;
